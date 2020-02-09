@@ -8,22 +8,33 @@ const Statistics = (props) => {
     const bad = props.bad
 
     const nClicks = good + neutral + bad 
-    const avgScore = nClicks === 0 ? 0 : (good - bad)/nClicks
-    const posRatio = nClicks === 0 ? 0 : 100*(good)/nClicks
-    
-    return (
-        <div>
-            <p>
-                Good {good}<br></br>
-                Neutral {neutral}<br></br>
-                Bad {bad}<br></br>
-                All {nClicks}<br></br>
-                Average {avgScore}<br></br>
-                Positive {posRatio} %
-            </p>
-        </div>
-    )
 
+    if (nClicks === 0) {
+        return (
+            <div>
+                No feedback given
+            </div>
+        )
+        
+    } else {
+        
+    
+        const avgScore = nClicks === 0 ? 0 : (good - bad)/nClicks
+        const posRatio = nClicks === 0 ? 0 : 100*(good)/nClicks
+
+        return (
+            <div>
+                <p>
+                    Good {good}<br></br>
+                    Neutral {neutral}<br></br>
+                    Bad {bad}<br></br>
+                    All {nClicks}<br></br>
+                    Average {avgScore}<br></br>
+                    Positive {posRatio} %
+                </p>
+            </div>
+        )
+    }
 }
 
 const App = () => {
