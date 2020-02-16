@@ -12,7 +12,12 @@ const App = (props) => {
   const [selected, setSelected] = useState(0)
   const [votes, SetVotes] = useState(Array(props.anecdotes.length).fill(0))
 
+  // Schwarzian transform 
   const nAnecdotes = props.anecdotes.length
+  const maxVotedAnecdote = props.anecdotes
+    .map( (item, index) => [votes[index], item] )
+    .sort( ([votes1], [votes2]) => votes2 - votes1 )
+    .map( ([nvotes, index]) => [index, nvotes] )
 
   const getRandomNumber = () => {
       return (
@@ -28,6 +33,7 @@ const App = (props) => {
 
   return (
     <div>
+        <h1>Anecdote of the day</h1>
         <div>
             {props.anecdotes[selected]}
         </div>
@@ -36,6 +42,9 @@ const App = (props) => {
         </div>
         <Button handleClick={handleVote} label="Vote" />
         <Button handleClick={() => setSelected(getRandomNumber())} label="Next Anecdote" />
+        <h1>Anecdote with most votes</h1>
+        <div>{maxVotedAnecdote[0][0]}</div>
+        <div>has {maxVotedAnecdote[0][1]} votes</div>
     </div>
   )
 }
